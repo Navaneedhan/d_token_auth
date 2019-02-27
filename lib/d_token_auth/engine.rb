@@ -5,4 +5,7 @@ module DTokenAuth
   end
   mattr_accessor :otp_verfication_enabled
   self.otp_verfication_enabled = false
+  def self.setup(&block)
+    yield self
+  end
 end

@@ -1,11 +1,11 @@
 module DTokenAuth
-  class DTokenAuthGenerator < Rails::Generators::Base
+  class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
 
     argument :user_class, type: :string, default: 'User'
 
     def create_initializer_file
-      copy_file('devise_token_auth.rb', 'config/initializers/d_token_auth.rb')
+      copy_file('d_token_auth.rb', 'config/initializers/d_token_auth.rb')
     end
 
     def add_route_mount
@@ -36,6 +36,25 @@ module DTokenAuth
         end
       else
         say_status('skipped', "config/routes.rb not found. Add \"mount_devise_token_auth_with_otp_verfication '#{user_class}'\" to your routes file.")
+      end
+    end
+
+    private
+
+    def parse_file_for_line(filename, str)
+      match = false
+
+      File.open(File.join(destination_root, filename)) do |f|
+        f.each_line do |line|
+          match = line if line =~ /(#{Regexp.escape(str)})/mi
+        end
+      end
+      match
+    end
+
+    def insert_after_line(filename, line, str)
+      gsub_file filename, /(#{Regexp.escape(line)})/mi do |match|
+        "#{match}\n  #{str}"
       end
     end
   end
