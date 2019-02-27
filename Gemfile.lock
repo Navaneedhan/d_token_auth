@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     d_token_auth (0.1.0)
+      devise_token_auth
       rails (~> 5.2.2)
 
 GEM
@@ -136,7 +137,6 @@ PLATFORMS
 
 DEPENDENCIES
   d_token_auth!
-  devise_token_auth
 
 BUNDLED WITH
    1.16.6
