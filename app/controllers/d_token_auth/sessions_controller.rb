@@ -4,6 +4,9 @@ module DTokenAuth
       super do |resource|
         puts "i am in sessions controller of new gem"
         p current_user
+        authenticate_user!
+        current_user = nil
+        authenticate_user!
       end
     end
 
