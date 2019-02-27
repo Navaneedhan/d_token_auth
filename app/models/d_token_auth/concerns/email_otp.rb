@@ -1,4 +1,4 @@
-module DeviseTokenAuth::Concerns::EmailOtp
+module DTokenAuth::Concerns::EmailOtp
   extend ActiveSupport::Concern
   def trigger_otp!(requested_at, force: false)
     if self.encrypted_otp.nil? || is_otp_expired? || force
