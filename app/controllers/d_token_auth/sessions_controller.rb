@@ -3,6 +3,7 @@ module DTokenAuth
     def create
       super do |resource|
         puts "i am in sessions controller of new gem"
+        p current_user
       end
     end
 
