@@ -1,7 +1,7 @@
 module DTokenAuth
   class SessionsController < DeviseTokenAuth::SessionsController
     def create
-      super do
+      super do |resource|
         puts "i am in sessions controller of new gem"
       end
     end
