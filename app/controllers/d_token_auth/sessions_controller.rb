@@ -2,10 +2,12 @@ module DTokenAuth
   class SessionsController < DeviseTokenAuth::SessionsController
     def create
       super do |resource|
-        resource.decrement!(:sign_in_count)
-        sign_out :user
-        requested_at = Time.now
-        resource.trigger_otp!(requested_at)
+        unless DTokenAuth.otp_verfication_enabled
+          resource.decrement!(:sign_in_count)
+          sign_out :user
+          requested_at = Time.now
+          resource.trigger_otp!(requested_at)
+        end
       end
     end
 
