@@ -9,6 +9,10 @@ module DTokenAuth
       end
     end
 
+    def verify_otp
+
+    end
+
     # private
     #   def resource_params
     #     params.permit(*params_for_resource(:sign_in))
