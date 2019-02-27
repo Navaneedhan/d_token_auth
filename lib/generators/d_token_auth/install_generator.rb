@@ -1,5 +1,5 @@
 module DTokenAuth
-  class DTokenAuthGenerator < Rails::Generators::NamedBase
+  class DTokenAuthGenerator < Rails::Generators::Base
     class << self
       def included(mod)
         mod.class_eval do
