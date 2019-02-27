@@ -9,7 +9,6 @@ module DTokenAuth
     end
 
     def add_route_mount
-      return unless DTokenAuth.otp_verfication_enabled
       f    = 'config/routes.rb'
       str  = "mount_devise_token_auth_with_otp_verfication '#{user_class}'"
       if File.exist?(File.join(destination_root, f))

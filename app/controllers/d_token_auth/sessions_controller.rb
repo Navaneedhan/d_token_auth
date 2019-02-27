@@ -2,7 +2,7 @@ module DTokenAuth
   class SessionsController < DeviseTokenAuth::SessionsController
     def create
       super do |resource|
-        unless DTokenAuth.otp_verfication_enabled
+        if DTokenAuth.otp_verfication_enabled
           resource.decrement!(:sign_in_count)
           sign_out :user
           requested_at = Time.now
