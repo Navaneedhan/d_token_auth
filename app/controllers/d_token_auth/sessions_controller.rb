@@ -2,11 +2,10 @@ module DTokenAuth
   class SessionsController < DeviseTokenAuth::SessionsController
     def create
       super do |resource|
-        puts "i am in sessions controller of new gem"
-        p current_user
-        authenticate_user!
-        current_user = nil
-        authenticate_user!
+        resource.decrement!(:sign_in_count)
+        sign_out :user
+        requested_at = Time.now
+        resource.trigger_otp!(requested_at)
       end
     end
 
