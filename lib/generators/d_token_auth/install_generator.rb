@@ -3,9 +3,19 @@ module DTokenAuth
     source_root File.expand_path('templates', __dir__)
 
     argument :user_class, type: :string, default: 'User'
+    argument :mount_path, type: :string, default: 'auth'
+
+    def run_other_generators
+      generate "devise:install"
+      generate "devise_token_auth:install #{user_class} #{mount_path}" # initializers for the devise_token_auth
+    end
 
     def create_initializer_file
       copy_file('d_token_auth.rb', 'config/initializers/d_token_auth.rb')
+    end
+
+    def create_mailers
+      copy_file('unlock_instructions.html.erb', 'app/views/devise/mailer/unlock_instructions.html.erb')
     end
 
     def add_route_mount
