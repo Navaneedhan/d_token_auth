@@ -18,6 +18,7 @@ module DTokenAuth
 
     def create_mailers
       copy_file('unlock_instructions.html.erb', 'app/views/devise/mailer/unlock_instructions.html.erb')
+      copy_file('reset_password_instructions.html.erb', 'app/views/devise/mailer/reset_password_instructions.html.erb')
     end
 
     def add_route_mount
