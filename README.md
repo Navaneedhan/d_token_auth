@@ -18,7 +18,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install d_token_auth
+$ rails generate d_token_auth:install
 ```
 
 ## Contributing
