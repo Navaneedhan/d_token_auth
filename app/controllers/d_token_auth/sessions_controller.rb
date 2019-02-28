@@ -1,8 +1,8 @@
 module DTokenAuth
   class SessionsController < DeviseTokenAuth::SessionsController
     def create
+      p "i am in the begin"
       super do |resource|
-        p "i am in the begin"
         if DTokenAuth.otp_verfication_enabled
           resource.decrement!(:sign_in_count)
           sign_out :user
@@ -10,8 +10,8 @@ module DTokenAuth
           resource.trigger_otp!(requested_at)
           return render_verify_otp_instructions
         end
-        p "i am in the end"
       end
+      p "i am in the end"
     end
 
     def verify_otp
