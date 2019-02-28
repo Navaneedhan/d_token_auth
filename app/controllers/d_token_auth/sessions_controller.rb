@@ -11,6 +11,10 @@ module DTokenAuth
           return render_verify_otp_instructions
         end
       end
+      p "current user"
+      p current_user
+      p "resource"
+      p resource
       if resource == current_user # the resource is logged in
         p "decrementing"
         resource.decrement!(:sign_in_count)
