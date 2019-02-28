@@ -1,0 +1,17 @@
+===============================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Include this in your User model to support devise, if you haven't yet
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :lockable
+
+  2. Ensure that the following concerns are added to you User model
+
+  include DeviseTokenAuth::Concerns::User
+  include DTokenAuth::Concerns::EmailOtp
+
+===============================================================================
