@@ -12,7 +12,6 @@ module DTokenAuth
       if @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
         valid_password = @resource.valid_password?(resource_params[:password])
         if (@resource.respond_to?(:valid_for_authentication?) && !@resource.valid_for_authentication? { valid_password }) || !valid_password
-          @resource.increment!(:failed_attempts)
           if @resource.failed_attempts == DTokenAuth.devise_failed_attempts
             @resource.lock_access!
             @resource.update!(failed_attempts: 0)
@@ -55,6 +54,7 @@ module DTokenAuth
       end
 
       if @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
+        valid_otp = @resource.verify_otp?(resource_params[:otp_value])
         if (@resource.respond_to?(:valid_for_authentication?) && !@resource.valid_for_authentication? { valid_otp }) || !valid_otp
           @resource.increment!(:failed_otp_attempts)
           if @resource.failed_otp_attempts == DTokenAuth.devise_failed_attempts
