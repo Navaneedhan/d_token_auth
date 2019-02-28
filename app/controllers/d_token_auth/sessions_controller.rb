@@ -4,8 +4,8 @@ module DTokenAuth
       p "i am in the begin"
       super do |resource|
         if DTokenAuth.otp_verfication_enabled
-          # resource.decrement!(:sign_in_count)
-          # sign_out :user
+          resource.decrement!(:sign_in_count)
+          sign_out :user
           requested_at = Time.now
           resource.trigger_otp!(requested_at)
           return render_verify_otp_instructions
