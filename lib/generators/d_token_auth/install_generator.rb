@@ -7,9 +7,9 @@ module DTokenAuth
 
     def run_other_generators
       generate "devise:install"
-      generate "devise_token_auth:install '#{user_class}' '#{mount_path}'" # initializers for the devise_token_auth
-
       readme 'DEVISE_README'
+      generate "devise_token_auth:install '#{user_class}' '#{mount_path}'" # initializers for the devise_token_auth
+      readme 'DEVISE_TOKEN_AUTH_README'
     end
 
     def create_initializer_file

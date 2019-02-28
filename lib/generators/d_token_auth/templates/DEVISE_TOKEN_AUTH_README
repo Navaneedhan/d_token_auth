@@ -1,0 +1,10 @@
+===============================================================================
+Some setup you must do manually if you haven't yet:
+  1. Change the following lines in the routes.rb
+
+    from: mount_devise_token_auth_for 'User', at: 'auth'
+    to  : mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        sessions: 'd_token_auth/sessions'
+    }
+
+===============================================================================
