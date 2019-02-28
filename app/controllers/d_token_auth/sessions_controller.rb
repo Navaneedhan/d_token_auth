@@ -54,16 +54,17 @@ module DTokenAuth
       end
 
       if @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
-        valid_otp = @resource.verify_otp?(resource_params[:otp_value])
-        if (@resource.respond_to?(:valid_for_authentication?) && !@resource.valid_for_authentication? { valid_otp }) || !valid_otp
+        unless @resource.verify_otp?(resource_params[:otp_value])
           @resource.increment!(:failed_otp_attempts)
           if @resource.failed_otp_attempts == DTokenAuth.devise_failed_attempts
+            @resource.reset_otp!
             @resource.lock_access!
             @resource.update!(failed_otp_attempts: 0)
             return render_create_error_account_locked
           end
           return render_verify_otp_bad_credentials
         end
+        @resource.reset_otp!
         sign_in(:user, @resource, store: false, bypass: false)
 
         yield @resource if block_given?
