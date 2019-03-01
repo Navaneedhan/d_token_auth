@@ -3,7 +3,6 @@ PATH
   specs:
     d_token_auth (0.1.0)
       devise_token_auth
-      rails (~> 5.2.2)
 
 GEM
   remote: https://rubygems.org/
